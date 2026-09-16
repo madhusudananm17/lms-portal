@@ -3,7 +3,7 @@ import { useAuth } from '../../context/AuthContext';
 import { Users, BookOpen, Award, ShieldCheck, DollarSign } from 'lucide-react';
 
 const AdminDashboard = () => {
-  const { courses, enrollments, user } = useAuth();
+  const { courses, enrollments, user, allUsers = [] } = useAuth();
 
   // Dynamic calculations based on live database/state
   const publishedCoursesCount = courses.length;
@@ -15,8 +15,8 @@ const AdminDashboard = () => {
     return sum + (course ? course.price : 0);
   }, 0);
 
-  // Dynamic user count (registered students + instructors + admin)
-  const totalUsersCount = activeEnrollmentsCount > 0 ? activeEnrollmentsCount + 3 : 3;
+  // Dynamic total registered users count
+  const totalUsersCount = allUsers.length;
 
   return (
     <div className="space-y-8">

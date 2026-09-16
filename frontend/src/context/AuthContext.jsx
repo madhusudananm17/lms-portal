@@ -210,6 +210,11 @@ export const AuthProvider = ({ children }) => {
     ];
   });
 
+  const [allUsers, setAllUsers] = useState(() => {
+    const saved = localStorage.getItem('lms_all_users');
+    return saved ? JSON.parse(saved) : [];
+  });
+
   useEffect(() => {
     if (user) {
       localStorage.setItem('lms_user', JSON.stringify(user));
@@ -229,6 +234,10 @@ export const AuthProvider = ({ children }) => {
   useEffect(() => {
     localStorage.setItem('lms_quiz_results', JSON.stringify(quizResults));
   }, [quizResults]);
+
+  useEffect(() => {
+    localStorage.setItem('lms_all_users', JSON.stringify(allUsers));
+  }, [allUsers]);
 
   const login = (email, password, role = 'student') => {
     // Standard mock login
@@ -277,16 +286,31 @@ export const AuthProvider = ({ children }) => {
 
   const register = (data) => {
     const newUser = {
-      id: Date.now(),
+      id: `usr_${Date.now()}`,
       name: data.name,
       email: data.email,
       role: data.role || 'student',
+      status: 'Active',
       avatar: `https://api.dicebear.com/7.x/avataaars/svg?seed=${encodeURIComponent(data.name)}`,
       title: data.title || (data.role === 'instructor' ? 'Course Instructor' : 'Student'),
-      bio: data.bio || ''
+      bio: data.bio || '',
+      registeredAt: new Date().toISOString().split('T')[0]
     };
+    setAllUsers(prev => [newUser, ...prev.filter(u => u.email !== data.email)]);
     setUser(newUser);
     return newUser;
+  };
+
+  const deleteUser = (userId) => {
+    setAllUsers(prev => prev.filter(u => u.id !== userId));
+  };
+
+  const updateUserRole = (userId, newRole) => {
+    setAllUsers(prev => prev.map(u => u.id === userId ? { ...u, role: newRole } : u));
+  };
+
+  const clearAllUsers = () => {
+    setAllUsers([]);
   };
 
   const logout = () => {
@@ -416,7 +440,11 @@ export const AuthProvider = ({ children }) => {
       addCourse,
       updateCourse,
       addLessonToCourse,
-      addQuizToCourse
+      addQuizToCourse,
+      allUsers,
+      deleteUser,
+      updateUserRole,
+      clearAllUsers
     }}>
       {children}
     </AuthContext.Provider>

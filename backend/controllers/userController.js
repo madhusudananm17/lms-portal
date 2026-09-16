@@ -1,11 +1,37 @@
+const User = require('../models/User');
+
 exports.getUsers = async (req, res) => {
-  res.json([
-    { id: 1, name: 'Alex Student', email: 'student@demo.com', role: 'student' },
-    { id: 2, name: 'Dr. Sarah Jenkins', email: 'instructor@demo.com', role: 'instructor' },
-    { id: 3, name: 'Admin User', email: 'admin@demo.com', role: 'admin' }
-  ]);
+  try {
+    const users = await User.find().select('-password');
+    res.json(users);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
 };
 
 exports.updateUserProfile = async (req, res) => {
-  res.json({ message: 'Profile updated successfully', user: req.body });
+  try {
+    const user = await User.findByIdAndUpdate(req.user.id || req.user._id, req.body, { new: true }).select('-password');
+    res.json({ message: 'Profile updated successfully', user });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+exports.deleteUser = async (req, res) => {
+  try {
+    await User.findByIdAndDelete(req.params.id);
+    res.json({ message: 'User deleted successfully' });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+exports.updateUserRole = async (req, res) => {
+  try {
+    const user = await User.findByIdAndUpdate(req.params.id, { role: req.body.role }, { new: true }).select('-password');
+    res.json(user);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
 };
