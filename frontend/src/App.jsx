@@ -22,22 +22,22 @@ import Register from './pages/Register';
 
 // Student Pages
 import StudentDashboard from './pages/student/StudentDashboard';
-import StudentMyCourses from './assets/pages/student/MyCourses';
-import StudentLearning from './assets/pages/student/Learning';
-import StudentQuiz from './assets/pages/student/Quiz';
-import StudentQuizResult from './assets/pages/student/QuizResult';
-import StudentCertificates from './assets/pages/student/Certificates';
-import StudentProfile from './assets/pages/student/Profile';
+import StudentMyCourses from './pages/student/MyCourses';
+import StudentLearning from './pages/student/Learning';
+import StudentQuiz from './pages/student/Quiz';
+import StudentQuizResult from './pages/student/QuizResult';
+import StudentCertificates from './pages/student/Certificates';
+import StudentProfile from './pages/student/Profile';
 
 // Instructor Pages
-import InstructorDashboard from './assets/pages/instructor/InstructorDashboard';
-import InstructorMyCourses from './assets/pages/instructor/MyCourses';
-import CreateCourse from './assets/pages/instructor/CreateCourse';
-import EditCourse from './assets/pages/instructor/EditCourse';
-import AddLesson from './assets/pages/instructor/AddLesson';
-import CreateQuiz from './assets/pages/instructor/CreateQuiz';
-import InstructorStudents from './assets/pages/instructor/Students';
-import InstructorProfile from './assets/pages/instructor/Profile';
+import InstructorDashboard from './pages/instructor/InstructorDashboard';
+import InstructorMyCourses from './pages/instructor/MyCourses';
+import CreateCourse from './pages/instructor/CreateCourse';
+import EditCourse from './pages/instructor/EditCourse';
+import AddLesson from './pages/instructor/AddLesson';
+import CreateQuiz from './pages/instructor/CreateQuiz';
+import InstructorStudents from './pages/instructor/Students';
+import InstructorProfile from './pages/instructor/Profile';
 
 // Admin Pages
 import AdminDashboard from './pages/admin/AdminDashboard';
